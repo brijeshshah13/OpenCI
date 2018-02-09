@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.novoda.build-properties'
+
+buildProperties {
+    notThere {
+        file rootProject.file('debug_gradle.properties')
+    }
+    secrets {
+        file rootProject.file('gradle.properties')
+    }
+}
+
+android {
+    signingConfigs {
+        signing {
+            keyAlias((buildProperties.secrets['android_key_alias'] | buildProperties.notThere['android_key_alias']).string)
+            keyPassword((buildProperties.secrets['android_store_password'] | buildProperties.notThere['android_store_password']).string)
+            storeFile file('openci-public.jks')
+            storePassword((buildProperties.secrets['android_store_password'] | buildProperties.notThere['android_store_password']).string)
+        }
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.openci"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        buildConfigString "GITHUB_CLIENT_ID", (buildProperties.secrets['github_client_id'] | buildProperties.notThere['github_client_id']).string
+        buildConfigString "GITHUB_SECRET", (buildProperties.secrets['github_secret'] | buildProperties.notThere['github_secret']).string
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.signing
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            if (!rootProject.file('gradle.properties').exists()) {
+                signingConfig signingConfigs.signing
+            }
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            ext.alwaysUpdateBuildId = false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':apicommunicator')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

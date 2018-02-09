@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.build-properties'
+
+buildProperties {
+    notThere {
+        file rootProject.file('debug_gradle.properties')
+    }
+    secrets {
+        file rootProject.file('gradle.properties')
+    }
+}
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        buildConfigString "GITHUB_CLIENT_ID", (buildProperties.secrets['github_client_id'] | buildProperties.notThere['github_client_id']).string
+        buildConfigString "GITHUB_SECRET", (buildProperties.secrets['github_secret'] | buildProperties.notThere['github_secret']).string
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            versionNameSuffix "-debug"
+            ext.alwaysUpdateBuildId = false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+}

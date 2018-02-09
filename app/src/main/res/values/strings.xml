@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">OpenCI</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="item_title">brijeshshah13/OpenCI</string>
+    <string name="item_desc">Just a demo description of the app</string>
+    <string name="list_branch">master</string>
+    <string name="login_desc">Sign In using your GitHub account to use OpenCI</string>
+</resources>

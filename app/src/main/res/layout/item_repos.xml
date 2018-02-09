@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/list_avatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/avatar_placeholder" />
+
+    <TextView
+        android:id="@+id/list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_toRightOf="@+id/list_avatar"
+        tools:text="@string/item_title"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/article_subheading" />
+
+    <TextView
+        android:id="@+id/list_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_title"
+        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_toRightOf="@+id/list_avatar"
+        android:textColor="@color/medium_grey"
+        android:ellipsize="end"
+        android:maxLines="2"
+        tools:text="@string/item_desc"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/list_body" />
+
+    <TextView
+        android:id="@+id/list_branch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_desc"
+        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_toRightOf="@+id/list_avatar"
+        android:text="@string/list_branch"
+        android:textSize="@dimen/list_body" />
+</RelativeLayout>
