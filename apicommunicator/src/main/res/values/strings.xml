@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">apicommunicator</string>
+    <string name="null_github_response">Sorry, we couldn\'t fetch any response from GitHub at the moment</string>
+    <string name="null_failure_response">Something went wrong!</string>
+    <string name="null_travis_response">Sorry, we couldn\'t fetch any response from Travis CI at the moment</string>
+    <string name="null_general_response">Sorry, we couldn\'t fetch any response</string>
 </resources>

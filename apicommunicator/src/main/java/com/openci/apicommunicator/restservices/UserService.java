@@ -2,8 +2,10 @@ package com.openci.apicommunicator.restservices;
 
 import android.support.annotation.Nullable;
 
+import com.openci.apicommunicator.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
 import com.openci.apicommunicator.interfaces.IUser;
+import com.openci.apicommunicator.models.LibApp;
 import com.openci.apicommunicator.models.UserResponse;
 
 import retrofit2.Call;
@@ -48,12 +50,22 @@ public class UserService {
         userResponseCall.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                callback.onSuccess(response.body());
+                if(response != null){
+                    callback.onSuccess(response.body());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_general_response));
+                }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                callback.onError(t.getMessage());
+                if(t != null && t.getMessage() != null){
+                    callback.onError(t.getMessage());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_failure_response));
+                }
             }
         });
     }

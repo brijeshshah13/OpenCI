@@ -2,8 +2,10 @@ package com.openci.apicommunicator.restservices;
 
 import android.support.annotation.Nullable;
 
+import com.openci.apicommunicator.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
 import com.openci.apicommunicator.interfaces.IOrgs;
+import com.openci.apicommunicator.models.LibApp;
 import com.openci.apicommunicator.models.OrgResponse;
 
 import retrofit2.Call;
@@ -48,12 +50,22 @@ public class OrgsService {
         orgsResponseCall.enqueue(new Callback<OrgResponse>() {
             @Override
             public void onResponse(Call<OrgResponse> call, Response<OrgResponse> response) {
-                callback.onSuccess(response.body());
+                if(response != null){
+                    callback.onSuccess(response.body());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_general_response));
+                }
             }
 
             @Override
             public void onFailure(Call<OrgResponse> call, Throwable t) {
-                callback.onError(t.getMessage());
+                if(t != null && t.getMessage() != null){
+                    callback.onError(t.getMessage());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_failure_response));
+                }
             }
         });
     }

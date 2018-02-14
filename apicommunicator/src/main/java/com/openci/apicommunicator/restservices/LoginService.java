@@ -2,10 +2,12 @@ package com.openci.apicommunicator.restservices;
 
 import android.support.annotation.Nullable;
 
+import com.openci.apicommunicator.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
 import com.openci.apicommunicator.interfaces.IGitHubClient;
 import com.openci.apicommunicator.interfaces.ITravisClient;
 import com.openci.apicommunicator.models.GitHubAccessToken;
+import com.openci.apicommunicator.models.LibApp;
 import com.openci.apicommunicator.models.TravisAccessToken;
 import com.openci.apicommunicator.models.TravisTokenRequest;
 import com.openci.apicommunicator.models.TravisTokens;
@@ -27,8 +29,8 @@ import static com.openci.apicommunicator.restservices.APIClient.getPublicClient;
 
 public class LoginService {
 
-    public static String CLIENT_ID = getClientID();
-    public static String CLIENT_SECRET = getSecret();
+    private static String CLIENT_ID = getClientID();
+    private static String CLIENT_SECRET = getSecret();
 
     /**
      * First we obtain the GitHub access_token in getTravisToken() and
@@ -51,14 +53,22 @@ public class LoginService {
         accessTokenCall.enqueue(new Callback<GitHubAccessToken>() {
             @Override
             public void onResponse(Call<GitHubAccessToken> call, Response<GitHubAccessToken> response) {
-                String github_token = response.body().getGitHubAccessToken();
-                getPublicToken(github_token, callback);
+                if(response != null){
+                    String github_token = response.body().getGitHubAccessToken();
+                    getPublicToken(github_token, callback);
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_github_response));
+                }
             }
 
             @Override
             public void onFailure(Call<GitHubAccessToken> call, Throwable t) {
-                if(t != null && t.getMessage() != null) {
+                if(t != null && t.getMessage() != null){
                     callback.onError(t.getMessage());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_failure_response));
                 }
             }
         });
@@ -75,14 +85,22 @@ public class LoginService {
         accessTokenCall.enqueue(new Callback<TravisAccessToken>() {
             @Override
             public void onResponse(Call<TravisAccessToken> call, Response<TravisAccessToken> response) {
-                String public_travis_token = response.body().getTravisAccessToken();
-                getPrivateToken(github_token, public_travis_token, callback);
+                if(response != null){
+                    String public_travis_token = response.body().getTravisAccessToken();
+                    getPrivateToken(github_token, public_travis_token, callback);
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_travis_response));
+                }
             }
 
             @Override
             public void onFailure(Call<TravisAccessToken> call, Throwable t) {
-                if(t != null && t.getMessage() != null) {
+                if(t != null && t.getMessage() != null){
                     callback.onError(t.getMessage());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_failure_response));
                 }
             }
         });
@@ -99,15 +117,23 @@ public class LoginService {
         accessTokenCall.enqueue(new Callback<TravisAccessToken>() {
             @Override
             public void onResponse(Call<TravisAccessToken> call, Response<TravisAccessToken> response) {
-                String private_travis_token = response.body().getTravisAccessToken();
-                TravisTokens token = new TravisTokens(public_travis_token,private_travis_token);
-                callback.onSuccess(token);
+                if(response != null){
+                    String private_travis_token = response.body().getTravisAccessToken();
+                    TravisTokens token = new TravisTokens(public_travis_token,private_travis_token);
+                    callback.onSuccess(token);
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_travis_response));
+                }
             }
 
             @Override
             public void onFailure(Call<TravisAccessToken> call, Throwable t) {
-                if(t != null && t.getMessage() != null) {
+                if(t != null && t.getMessage() != null){
                     callback.onError(t.getMessage());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_failure_response));
                 }
             }
         });

@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.openci.R;
@@ -25,12 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.btn_login);
         Log.d("value:", getClientID());
         final String url = OAUTH_URL + "?client_id=" + getClientID() + "&scope=repo&redirect_uri=" + CALLBACK_URL;
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptLogin(url);
-            }
-        });
+        loginButton.setOnClickListener(v -> attemptLogin(url));
     }
 
     private void attemptLogin(String url){

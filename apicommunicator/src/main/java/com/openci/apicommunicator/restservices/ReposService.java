@@ -2,8 +2,10 @@ package com.openci.apicommunicator.restservices;
 
 import android.support.annotation.Nullable;
 
+import com.openci.apicommunicator.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
 import com.openci.apicommunicator.interfaces.IRepos;
+import com.openci.apicommunicator.models.LibApp;
 import com.openci.apicommunicator.models.ReposResponse;
 
 import retrofit2.Call;
@@ -46,12 +48,22 @@ public class ReposService {
         reposResponseCall.enqueue(new Callback<ReposResponse>() {
             @Override
             public void onResponse(Call<ReposResponse> call, Response<ReposResponse> response) {
-                callback.onSuccess(response.body());
+                if(response != null){
+                    callback.onSuccess(response.body());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_general_response));
+                }
             }
 
             @Override
             public void onFailure(Call<ReposResponse> call, Throwable t) {
-                callback.onError(t.getMessage());
+                if(t != null && t.getMessage() != null){
+                    callback.onError(t.getMessage());
+                }
+                else{
+                    callback.onError(LibApp.getContext().getString(R.string.null_failure_response));
+                }
             }
         });
     }

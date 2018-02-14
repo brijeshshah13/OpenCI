@@ -66,21 +66,17 @@ public class PublicReposFragment extends Fragment {
         getRepos(public_travis_token, null, new IAPICallBack() {
             @Override
             public void onSuccess(@NonNull Object value) {
-                if(value != null){
-                    if(value instanceof ReposResponse){
-                        if(value != null){
-                            ReposResponse reposResponse = (ReposResponse) value;
-                            Pagination reposPagination = reposResponse.getPagination();
-                            if(reposPagination.getCount() != 0){
-                                ContentAdapter adapter = new ContentAdapter(getActivity(),reposResponse.getRepositories());
-                                mPublicReposRV.setAdapter(adapter);
-                            }
-                            else {
-                                // display on the screen
-                                Toast.makeText(getActivity(), "No public repos",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
+                if(value instanceof ReposResponse){
+                    ReposResponse reposResponse = (ReposResponse) value;
+                    Pagination reposPagination = reposResponse.getPagination();
+                    if(reposPagination.getCount() != 0){
+                        ContentAdapter adapter = new ContentAdapter(getActivity(),reposResponse.getRepositories());
+                        mPublicReposRV.setAdapter(adapter);
+                    }
+                    else {
+                        // display on the screen
+                        Toast.makeText(getActivity(), "No public repos",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -134,17 +130,13 @@ public class PublicReposFragment extends Fragment {
             ReposOwner reposOwner = repo.getRepoOwner();
 
             if(reposOwner.getType().equals("user")){
-                UserService.getIndividualUser(public_travis_token, null,reposOwner.getId(), new IAPICallBack() {
+                UserService.getIndividualUser(public_travis_token, null, reposOwner.getId(), new IAPICallBack() {
                     @Override
                     public void onSuccess(@NonNull Object value) {
-                        if(value != null){
-                            if(value instanceof UserResponse){
-                                if(value != null){
-                                    UserResponse userResponse = (UserResponse) value;
-                                    String url = userResponse.getAvatarURL();
-                                    Picasso.with(mContext).load(url).placeholder(R.drawable.avatar_placeholder).fit().transform(new CircleTransform()).into(holder.avatar);
-                                }
-                            }
+                        if(value instanceof UserResponse){
+                            UserResponse userResponse = (UserResponse) value;
+                            String url = userResponse.getAvatarURL();
+                            Picasso.with(mContext).load(url).placeholder(R.drawable.avatar_placeholder).fit().transform(new CircleTransform()).into(holder.avatar);
                         }
                     }
 
@@ -156,17 +148,13 @@ public class PublicReposFragment extends Fragment {
             }
             // else it will be an organization
             else {
-                OrgsService.getIndividualOrg(public_travis_token, null,reposOwner.getId(), new IAPICallBack() {
+                OrgsService.getIndividualOrg(public_travis_token, null, reposOwner.getId(), new IAPICallBack() {
                     @Override
                     public void onSuccess(@NonNull Object value) {
-                        if(value != null){
-                            if(value instanceof OrgResponse){
-                                if(value != null){
-                                    OrgResponse orgResponse = (OrgResponse) value;
-                                    String url = orgResponse.getAvatarURL();
-                                    Picasso.with(mContext).load(url).placeholder(R.drawable.avatar_placeholder).fit().transform(new CircleTransform()).into(holder.avatar);
-                                }
-                            }
+                        if(value instanceof OrgResponse){
+                            OrgResponse orgResponse = (OrgResponse) value;
+                            String url = orgResponse.getAvatarURL();
+                            Picasso.with(mContext).load(url).placeholder(R.drawable.avatar_placeholder).fit().transform(new CircleTransform()).into(holder.avatar);
                         }
                     }
 
