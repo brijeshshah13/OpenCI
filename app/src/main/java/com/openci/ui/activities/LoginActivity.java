@@ -1,6 +1,7 @@
 package com.openci.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +16,24 @@ public class LoginActivity extends AppCompatActivity {
 
     public static String OAUTH_URL = "https://github.com/login/oauth/authorize";
     public static String CALLBACK_URL = "openci://callback";
+    private static String PREFS_NAME = "SHARED_PREFS";
+    private static String private_travis_token = null;
+    private static String public_travis_token = null;
     Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        public_travis_token = sharedPreferences.getString("public_travis_token", null);
+        private_travis_token = sharedPreferences.getString("private_travis_token", null);
+
+        if(public_travis_token != null && private_travis_token != null) {
+            Intent intentToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intentToMainActivity);
+        }
+
         setContentView(R.layout.activity_login);
         loginButton = findViewById(R.id.btn_login);
         Log.d("value:", getClientID());
