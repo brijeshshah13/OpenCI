@@ -121,7 +121,13 @@ public class PrivateReposFragment extends Fragment {
 
             RepoResponse repo = repos.get(position);
             holder.slug.setText(repo.getSlug());
-            holder.description.setText(repo.getDescription());
+
+            if(repo.getDescription() == null || repo.getDescription().length() == 0 || repo.getDescription().equals("")) {
+                holder.description.setVisibility(View.GONE);
+            }
+            else {
+                holder.description.setText(repo.getDescription());
+            }
 
             ReposDefaultBranch reposDefaultBranch = repo.getReposDefualtBranch();
             holder.branch.setText(reposDefaultBranch.getName());
