@@ -7,7 +7,7 @@
 
 **Open-source** Travis CI client built from ground zero.
 
-Ever wished of triggering or sharing those code tests right from your mobilde device? Well, OpenCI does just that. Now test and deploy with confidence with Travis CI on the go.
+Ever wished of triggering or sharing those code tests right from your mobile device? Well, OpenCI does just that. Now test and deploy with confidence with Travis CI on the go.
 
 ## Screenshots
 
