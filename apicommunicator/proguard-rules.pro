@@ -21,9 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 # For Retrofit:
--keep class org.codehaus.** { *; }
--keep class retrofit2.** { *; } 
--dontwarn class org.codehaus.mojo.animal_sniffer.** { *; }
 # Platform calls Class.forName on types which do not exist on Android to determine platform.
 -dontnote retrofit2.Platform
 # Platform used when running on Java 8 VMs. Will not be used at runtime.
