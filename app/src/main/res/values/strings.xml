@@ -8,4 +8,5 @@
     <string name="item_desc">Just a demo description of the app</string>
     <string name="list_branch">master</string>
     <string name="login_desc">Sign In using your GitHub account to use OpenCI</string>
+    <string name="login">Login</string>
 </resources>
