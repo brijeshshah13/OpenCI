@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@drawable/login_gradient"
     tools:context="com.openci.ui.activities.LoginActivity">
 
     <Button
@@ -32,7 +32,7 @@
         android:layout_marginTop="160dp"
         android:text="@string/login_desc"
         android:textAlignment="center"
-        android:textColor="#176EC4"
+        android:textColor="@color/colorWhite"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
