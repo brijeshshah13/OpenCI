@@ -3,32 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/nav_bar_app_options"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
-            android:title="Home" />
+            android:title="@string/nav_menu_title_home" />
+        <item
+            android:id="@+id/nav_repos"
+            android:icon="@drawable/ic_repo"
+            android:title="@string/nav_menu_title_repositories" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_issue"
-                android:icon="@drawable/ic_menu_issue"
-                android:title="Report an issue" />
-            <item
-                android:id="@+id/nav_faq"
-                android:icon="@drawable/ic_menu_faq"
-                android:title="FAQ" />
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_settings"
-                android:title="Settings" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_about"
-                android:title="About" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/nav_bar_app_extras"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_issue"
+            android:icon="@drawable/ic_menu_issue"
+            android:title="@string/nav_menu_title_issue" />
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/ic_menu_faq"
+            android:title="@string/nav_menu_title_faq" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/nav_menu_title_settings" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="@string/nav_menu_title_about" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/nav_menu_title_logout" />
+    </group>
 
 </menu>
