@@ -9,6 +9,6 @@
     </style>
 
     <style name="LoginTheme" parent="AppTheme.NoActionBar">
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorLogo</item>
     </style>
 </resources>
