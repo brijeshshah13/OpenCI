@@ -1,8 +1,6 @@
 package com.openci.ui.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,12 +11,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.openci.R;
-import com.openci.ui.fragments.RepositoriesFragment;
+import com.openci.core.DrawerNavigator;
+import com.openci.core.FragmentNavigator;
+
+import static com.openci.core.DrawerNavigator.changeTitle;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
+    private DrawerNavigator drawerNavigator;
+    private FragmentNavigator fragmentNavigator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentNavigator = new FragmentNavigator(getSupportFragmentManager());
+        drawerNavigator = new DrawerNavigator(this, fragmentNavigator);
     }
 
     @Override
@@ -75,39 +82,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        selectDrawerItem(item);
+        drawerNavigator.selectItem(item);
+        // Set action bar title
+        if(changeTitle) {
+            setTitle(item.getTitle());
+        }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void selectDrawerItem(MenuItem menuItem) {
-
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        switch(menuItem.getItemId()) {
-            case R.id.nav_repos:
-                fragment = RepositoriesFragment.newInstance();
-                break;
-            case R.id.nav_issue:
-                break;
-            case R.id.nav_faq:
-                break;
-            case R.id.nav_settings:
-                break;
-            case R.id.nav_about:
-                break;
-            case R.id.nav_logout:
-                break;
-            case R.id.nav_home:
-            default:
-                fragment = RepositoriesFragment.newInstance();
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.fl_content, fragment).commit();
-
-        // Set action bar title
-        setTitle(menuItem.getTitle());
     }
 }
