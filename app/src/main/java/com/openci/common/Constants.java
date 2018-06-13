@@ -1,4 +1,4 @@
-package com.openci.constants;
+package com.openci.common;
 
 public class Constants {
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,9 @@ import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.openci.apicommunicator.restservices.ReposService.getRepos;
-import static com.openci.constants.Constants.PREFS_NAME;
+import static com.openci.common.views.BaseFragment.hideProgressBar;
+import static com.openci.common.views.BaseFragment.showProgressBar;
+import static com.openci.common.Constants.PREFS_NAME;
 
 /**
  * Created by Vicky on 10-01-2018.
@@ -42,19 +45,13 @@ import static com.openci.constants.Constants.PREFS_NAME;
 public class PublicReposFragment extends Fragment {
 
     RecyclerView mPublicReposRV;
+    private ProgressBar progressBar;
     private static String public_travis_token = null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mPublicReposRV = (RecyclerView) inflater.inflate(
-                R.layout.repos_recycler_view, container, false);
-        mPublicReposRV.setHasFixedSize(true);
-        mPublicReposRV.setItemViewCacheSize(20);
-        mPublicReposRV.setDrawingCacheEnabled(true);
-        mPublicReposRV.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mPublicReposRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-        return mPublicReposRV;
+        return inflater.inflate(R.layout.layout_repos,container,false);
     }
 
     @Override
@@ -63,9 +60,22 @@ public class PublicReposFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         public_travis_token = sharedPreferences.getString("public_travis_token", null);
 
+        mPublicReposRV = view.findViewById(R.id.repos_recycler_view);
+        mPublicReposRV.setHasFixedSize(true);
+        mPublicReposRV.setItemViewCacheSize(20);
+        mPublicReposRV.setDrawingCacheEnabled(true);
+        mPublicReposRV.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        mPublicReposRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        progressBar = view.findViewById(R.id.pgb_repos);
+        showProgressBar(progressBar);
+        mPublicReposRV.setVisibility(View.GONE);
+
         getRepos(public_travis_token, null, new IAPICallBack() {
             @Override
             public void onSuccess(@NonNull Object value) {
+                hideProgressBar(progressBar);
+                mPublicReposRV.setVisibility(View.VISIBLE);
                 if(value instanceof ReposResponse){
                     ReposResponse reposResponse = (ReposResponse) value;
                     Pagination reposPagination = reposResponse.getPagination();

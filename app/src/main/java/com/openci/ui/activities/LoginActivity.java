@@ -10,15 +10,13 @@ import android.widget.Button;
 
 import com.openci.R;
 
-import static com.openci.constants.Constants.CALLBACK_URL;
-import static com.openci.constants.Constants.OAUTH_URL;
-import static com.openci.constants.Constants.PREFS_NAME;
+import static com.openci.common.Constants.CALLBACK_URL;
+import static com.openci.common.Constants.OAUTH_URL;
+import static com.openci.common.Constants.PREFS_NAME;
 import static com.openci.models.GitHubConfigHelper.getClientID;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String private_travis_token = null;
-    private static String public_travis_token = null;
     Button loginButton;
 
     @Override
@@ -26,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        public_travis_token = sharedPreferences.getString("public_travis_token", null);
-        private_travis_token = sharedPreferences.getString("private_travis_token", null);
+        String public_travis_token = sharedPreferences.getString("public_travis_token", null);
+        String private_travis_token = sharedPreferences.getString("private_travis_token", null);
 
         if(public_travis_token != null && private_travis_token != null) {
             Intent intentToMainActivity = new Intent(LoginActivity.this, MainActivity.class);

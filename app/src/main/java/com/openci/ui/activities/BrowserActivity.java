@@ -11,8 +11,8 @@ import com.openci.apicommunicator.callbacks.IAPICallBack;
 import com.openci.apicommunicator.models.TravisTokens;
 
 import static com.openci.apicommunicator.restservices.LoginService.getTravisToken;
-import static com.openci.constants.Constants.CALLBACK_URL;
-import static com.openci.constants.Constants.PREFS_NAME;
+import static com.openci.common.Constants.CALLBACK_URL;
+import static com.openci.common.Constants.PREFS_NAME;
 
 public class BrowserActivity extends AppCompatActivity {
 
