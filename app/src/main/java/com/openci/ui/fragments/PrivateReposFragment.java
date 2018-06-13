@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.openci.apicommunicator.restservices.ReposService.getRepos;
+import static com.openci.constants.Constants.PREFS_NAME;
 
 /**
  * Created by Vicky on 10-01-2018.
@@ -42,7 +43,6 @@ public class PrivateReposFragment extends Fragment {
 
     RecyclerView mPrivateReposRV;
     private static String private_travis_token = null;
-    private static String PREFS_NAME = "SHARED_PREFS";
 
     @Nullable
     @Override

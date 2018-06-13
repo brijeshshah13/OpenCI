@@ -10,13 +10,13 @@ import android.widget.Button;
 
 import com.openci.R;
 
+import static com.openci.constants.Constants.CALLBACK_URL;
+import static com.openci.constants.Constants.OAUTH_URL;
+import static com.openci.constants.Constants.PREFS_NAME;
 import static com.openci.models.GitHubConfigHelper.getClientID;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static String OAUTH_URL = "https://github.com/login/oauth/authorize";
-    public static String CALLBACK_URL = "openci://callback";
-    private static String PREFS_NAME = "SHARED_PREFS";
     private static String private_travis_token = null;
     private static String public_travis_token = null;
     Button loginButton;

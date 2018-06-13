@@ -11,14 +11,14 @@ import com.openci.apicommunicator.callbacks.IAPICallBack;
 import com.openci.apicommunicator.models.TravisTokens;
 
 import static com.openci.apicommunicator.restservices.LoginService.getTravisToken;
+import static com.openci.constants.Constants.CALLBACK_URL;
+import static com.openci.constants.Constants.PREFS_NAME;
 
 public class BrowserActivity extends AppCompatActivity {
 
-    public static String CALLBACK_URL = "openci://callback";
     private static String code = null;
     private static String public_travis_token = null;
     private static String private_travis_token = null;
-    private static String PREFS_NAME = "SHARED_PREFS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
