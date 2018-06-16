@@ -44,3 +44,5 @@
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
+# -keep class com.openci.apicommunicator.restservices.** {*;}
+-keep class com.openci.apicommunicator.models.** {*;}
