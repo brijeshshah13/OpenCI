@@ -53,6 +53,9 @@ public class RepoResponse {
     @SerializedName("starred")
     private boolean mStarred;
 
+    @SerializedName("last_started_build")
+    private BuildResponse mBuildResponse;
+
     public String getType() {
         return mType;
     }
@@ -147,5 +150,13 @@ public class RepoResponse {
 
     public void setStarred(boolean mStarred) {
         this.mStarred = mStarred;
+    }
+
+    public BuildResponse getBuildResponse() {
+        return mBuildResponse;
+    }
+
+    public void setBuildResponse(BuildResponse mBuildResponse) {
+        this.mBuildResponse = mBuildResponse;
     }
 }

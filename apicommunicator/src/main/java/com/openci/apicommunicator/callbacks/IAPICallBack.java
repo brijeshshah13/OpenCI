@@ -1,6 +1,6 @@
 package com.openci.apicommunicator.callbacks;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by Vicky on 06-01-2018.

@@ -3,11 +3,11 @@ package com.openci.ui.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.openci.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
+import com.openci.apicommunicator.models.BuildResponse;
 import com.openci.apicommunicator.models.OrgResponse;
 import com.openci.apicommunicator.models.ReposResponse;
 import com.openci.apicommunicator.models.UserResponse;
@@ -37,6 +39,8 @@ import static com.openci.apicommunicator.restservices.ReposService.getRepos;
 import static com.openci.common.views.BaseFragment.hideProgressBar;
 import static com.openci.common.views.BaseFragment.showProgressBar;
 import static com.openci.common.Constants.PREFS_NAME;
+import static com.openci.utils.DateUtils.getDate;
+import static com.openci.utils.DateUtils.rfc3339ToMills;
 
 /**
  * Created by Vicky on 10-01-2018.
@@ -101,16 +105,18 @@ public class PrivateReposFragment extends Fragment {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView avatar;
         public TextView slug;
-        public TextView description;
+        public TextView last_run_time;
         public TextView branch;
+        public LottieAnimationView last_build_status;
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_repos, parent, false));
             avatar = (ImageView) itemView.findViewById(R.id.list_avatar);
             slug = (TextView) itemView.findViewById(R.id.list_title);
-            description = (TextView) itemView.findViewById(R.id.list_desc);
+            last_run_time = (TextView) itemView.findViewById(R.id.list_last_run_time);
             branch = (TextView) itemView.findViewById(R.id.list_branch);
+            last_build_status = (LottieAnimationView) itemView.findViewById(R.id.list_last_build_status);
         }
-    }
+    };
 
     public static class ContentAdapter extends RecyclerView.Adapter<PrivateReposFragment.ViewHolder> {
         // Set numbers of List in RecyclerView.
@@ -133,12 +139,45 @@ public class PrivateReposFragment extends Fragment {
             RepoResponse repo = repos.get(position);
             holder.slug.setText(repo.getSlug());
 
+            BuildResponse buildResponse = repo.getBuildResponse();
+            if(buildResponse == null) {
+                holder.last_run_time.setText("No build found!");
+            }
+            else {
+                Long dateTime = rfc3339ToMills(buildResponse.getFinishedAt());
+                String date = getDate(dateTime);
+                if (date.toLowerCase().contains("AM".toLowerCase()) || date.toLowerCase().contains("PM".toLowerCase())) {
+                    holder.last_run_time.setText(mContext.getString(R.string.last_build_time_1, date));
+                } else {
+                    holder.last_run_time.setText(mContext.getString(R.string.last_build_time, date));
+                }
+                if(buildResponse.getState() == null) {
+
+                } else {
+                    switch (buildResponse.getState()) {
+                        //case "created": holder.last_build_status.setImageResource();
+                        //case "received": holder.last_build_status.setImageResource();
+                        case "started": holder.last_build_status.setAnimation(R.raw.loading_3_dots_animation);
+                                        break;
+                        case "passed": holder.last_build_status.setImageResource(R.drawable.check);
+                                        break;
+                        case "failed": holder.last_build_status.setImageResource(R.drawable.close);
+                                        break;
+                        case "errored": holder.last_build_status.setImageResource(R.drawable.ic_bang);
+                                        break;
+                        case "canceled": holder.last_build_status.setImageResource(R.drawable.cancel);
+                        // TODO: set default case
+                    }
+                }
+            }
+            /*
             if(repo.getDescription() == null || repo.getDescription().length() == 0 || repo.getDescription().equals("")) {
                 holder.description.setVisibility(View.GONE);
             }
             else {
                 holder.description.setText(repo.getDescription());
             }
+            */
 
             ReposDefaultBranch reposDefaultBranch = repo.getReposDefualtBranch();
             holder.branch.setText(reposDefaultBranch.getName());

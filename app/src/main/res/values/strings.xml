@@ -20,4 +20,6 @@
     <string name="logout_confirmation_message">Are you sure you want to log out?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="last_build_time">Ran %sago</string>
+    <string name="last_build_time_1">Ran on %s</string>
 </resources>
