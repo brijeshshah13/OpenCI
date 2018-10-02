@@ -6,8 +6,10 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
-    <dimen name="avatar_size">50dp</dimen>
-    <dimen name="article_subheading">16sp</dimen>
+    <dimen name="avatar_size">24dp</dimen>
+    <dimen name="article_subheading">18sp</dimen>
     <dimen name="list_body">14sp</dimen>
     <dimen name="progressbar_margin">5dp</dimen>
+    <dimen name="spacing_micro">8dp</dimen>
+    <dimen name="md_activity_horizontal_margin">16dp</dimen>
 </resources>

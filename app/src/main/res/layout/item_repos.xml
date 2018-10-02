@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingBottom="@dimen/spacing_micro">
 
     <ImageView
         android:id="@+id/list_avatar"
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
         android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
         tools:src="@drawable/avatar_placeholder" />
 
     <TextView
         android:id="@+id/list_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/list_avatar"
         android:layout_toRightOf="@+id/list_avatar"
-        tools:text="@string/item_title"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="@dimen/article_subheading" />
+        android:textSize="@dimen/article_subheading"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/list_avatar"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:text="@string/item_title" />
 
+    <!--
     <TextView
         android:id="@+id/list_desc"
         android:layout_width="match_parent"
@@ -38,14 +45,105 @@
         tools:text="@string/item_desc"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="@dimen/list_body" />
+    -->
+
+    <ImageView
+        android:id="@+id/list_build"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/list_title"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/list_avatar"
+        android:tint="@color/medium_grey"
+        app:layout_constraintBottom_toTopOf="@+id/list_branch"
+        app:layout_constraintEnd_toStartOf="@+id/list_last_run_time"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/list_title"
+        app:srcCompat="@drawable/timer" />
+
+    <TextView
+        android:id="@+id/list_last_run_time"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/list_build"
+        android:layout_toRightOf="@+id/list_build"
+        android:text="@string/last_build_time"
+        android:textSize="@dimen/list_body"
+        app:layout_constraintBottom_toBottomOf="@+id/list_build"
+        app:layout_constraintEnd_toStartOf="@+id/list_last_build_status"
+        app:layout_constraintStart_toEndOf="@+id/list_build"
+        app:layout_constraintTop_toTopOf="@+id/list_build" />
 
     <TextView
         android:id="@+id/list_branch"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_desc"
-        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_below="@+id/list_build"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_toRightOf="@+id/list_avatar"
         android:text="@string/list_branch"
-        android:textSize="@dimen/list_body" />
-</RelativeLayout>
+        android:textSize="@dimen/list_body"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/list_last_build_status"
+        app:layout_constraintStart_toEndOf="@+id/list_default_branch" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/list_last_build_status"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignBottom="@+id/list_avatar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:tint="@android:color/holo_green_light"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/list_last_run_time"
+        app:layout_constraintTop_toBottomOf="@+id/list_title"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        tools:src="@drawable/check" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/spacing_micro" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/md_activity_horizontal_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/md_activity_horizontal_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/spacing_micro" />
+
+    <ImageView
+        android:id="@+id/list_default_branch"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:tint="@color/medium_grey"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/list_last_run_time"
+        app:srcCompat="@drawable/ic_git_branch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

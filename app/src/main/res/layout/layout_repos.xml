@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/progressbar_margin"
         android:layout_gravity="top|center_horizontal"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/repos_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

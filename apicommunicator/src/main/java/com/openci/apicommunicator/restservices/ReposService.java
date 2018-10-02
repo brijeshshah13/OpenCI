@@ -1,6 +1,6 @@
 package com.openci.apicommunicator.restservices;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.openci.apicommunicator.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
@@ -25,6 +25,7 @@ public class ReposService {
     public static void getRepos(String public_travis_token, String private_travis_token, @Nullable final IAPICallBack callback){
         String public_authorization_token;
         String private_authorization_token;
+        String include = "repository.last_started_build";
         Retrofit retrofit;
         Call<ReposResponse> reposResponseCall;
 
@@ -32,16 +33,18 @@ public class ReposService {
             public_authorization_token = "token " + public_travis_token;
             retrofit = getPublicClient();
             IRepos repos = retrofit.create(IRepos.class);
-            reposResponseCall = repos.getUser(
-                    public_authorization_token
+            reposResponseCall = repos.getRepos(
+                    public_authorization_token,
+                    include
             );
         }
         else{
             private_authorization_token = "token " + private_travis_token;
             retrofit = getPrivateClient();
             IRepos repos = retrofit.create(IRepos.class);
-            reposResponseCall = repos.getUser(
-                    private_authorization_token
+            reposResponseCall = repos.getRepos(
+                    private_authorization_token,
+                    include
             );
         }
         // Yet to deal if both tokens are null

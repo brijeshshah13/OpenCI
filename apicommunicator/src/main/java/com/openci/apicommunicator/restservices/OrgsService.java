@@ -1,6 +1,6 @@
 package com.openci.apicommunicator.restservices;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.openci.apicommunicator.R;
 import com.openci.apicommunicator.callbacks.IAPICallBack;
