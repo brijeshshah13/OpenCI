@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.openci.R;
 import com.openci.ui.activities.LoginActivity;
+import com.openci.ui.activities.MainActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -64,5 +65,6 @@ public class DrawerNavigator {
         editor.commit();
         Intent intentToLoginActivity = new Intent(context, LoginActivity.class);
         context.startActivity(intentToLoginActivity);
+        ((MainActivity) context).finishAffinity();
     }
 }
