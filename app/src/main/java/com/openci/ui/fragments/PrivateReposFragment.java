@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,8 @@ public class PrivateReposFragment extends Fragment {
 
     RecyclerView mPrivateReposRV;
     private ProgressBar progressBar;
+    private LinearLayout noRepoLayout;
+    private TextView repoTxt;
     private static String private_travis_token = null;
 
     @Nullable
@@ -64,6 +67,8 @@ public class PrivateReposFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         private_travis_token = sharedPreferences.getString("private_travis_token", null);
 
+        noRepoLayout = view.findViewById(R.id.no_repo_layout);
+        repoTxt = view.findViewById(R.id.txt_repo);
         mPrivateReposRV = view.findViewById(R.id.repos_recycler_view);
         mPrivateReposRV.setHasFixedSize(true);
         mPrivateReposRV.setItemViewCacheSize(20);
@@ -89,8 +94,8 @@ public class PrivateReposFragment extends Fragment {
                     }
                     else {
                         // display on the screen
-                        Toast.makeText(getActivity(), "No private repos",
-                                Toast.LENGTH_LONG).show();
+                        repoTxt.setText("No private repos");
+                        noRepoLayout.setVisibility(View.VISIBLE);
                     }
                 }
             }
