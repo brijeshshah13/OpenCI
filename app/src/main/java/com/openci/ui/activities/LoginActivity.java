@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         if(public_travis_token != null && private_travis_token != null) {
             Intent intentToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intentToMainActivity);
+            finish();
         }
 
         setContentView(R.layout.activity_login);
@@ -42,5 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin(String url){
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(i);
+        finish();
     }
 }
