@@ -102,6 +102,12 @@ dependencies {
     // Material Design
     implementation 'com.google.android.material:material:1.1.0'
 
+    // Moshi
+    def moshi_version = "1.9.2"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.7.2'
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
     // Dagger 2
     def dagger_version = "2.27"
     implementation "com.google.dagger:dagger:$dagger_version"

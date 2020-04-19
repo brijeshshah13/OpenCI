@@ -1,4 +1,4 @@
-package com.openci.di.module
+package com.openci.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.openci.ViewModelProviderFactory

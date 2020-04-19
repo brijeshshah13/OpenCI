@@ -1,10 +1,7 @@
-package com.openci.di.component
+package com.openci.di
 
 import android.app.Application
 import com.openci.OpenCIApp
-import com.openci.di.builder.ActivityBuilder
-import com.openci.di.module.OpenCIApiModule
-import com.openci.di.module.ViewModelFactoryModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -15,7 +12,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        ActivityBuilder::class,
+        ActivityBuilderModule::class,
         OpenCIApiModule::class,
         ViewModelFactoryModule::class
     ]

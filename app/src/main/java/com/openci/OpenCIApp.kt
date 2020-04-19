@@ -1,6 +1,6 @@
 package com.openci
 
-import com.openci.di.component.DaggerAppComponent
+import com.openci.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 
