@@ -1,13 +1,19 @@
 package com.openci.di
 
-import com.openci.ui.activities.MainActivity
+import com.openci.di.login.LoginModule
+import com.openci.di.login.LoginScope
+import com.openci.di.login.LoginViewModelModule
+import com.openci.ui.login.LoginActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBuilderModule {
 
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
+    @LoginScope
+    @ContributesAndroidInjector(
+        modules = [LoginModule::class, LoginViewModelModule::class]
+    )
+    abstract fun bindLoginActivity(): LoginActivity
 
 }

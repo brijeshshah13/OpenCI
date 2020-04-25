@@ -15,6 +15,7 @@ buildProperties {
 }
 
 android {
+
     signingConfigs {
         signing {
             keyAlias((buildProperties.secrets['android_key_alias'] | buildProperties.notThere['android_key_alias']).string)
@@ -23,6 +24,7 @@ android {
             storePassword((buildProperties.secrets['android_store_password'] | buildProperties.notThere['android_store_password']).string)
         }
     }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -36,6 +38,11 @@ android {
         buildConfigString "GITHUB_SECRET", (buildProperties.secrets['github_secret'] | buildProperties.notThere['github_secret']).string
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    viewBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -52,6 +59,7 @@ android {
             ext.alwaysUpdateBuildId = false
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -60,7 +68,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':apicommunicator')
 
     // Android
     implementation 'androidx.appcompat:appcompat:1.1.0'

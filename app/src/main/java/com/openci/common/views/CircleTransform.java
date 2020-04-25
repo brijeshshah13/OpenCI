@@ -1,4 +1,4 @@
-package com.openci.ui.views;
+package com.openci.common.views;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
