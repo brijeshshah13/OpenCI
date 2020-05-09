@@ -1,15 +1,15 @@
 package com.openci.ui.browser
 
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.openci.common.Constants.CALLBACK_URL
+import com.openci.databinding.ActivityBrowserBinding
+import com.openci.ui.base.BaseActivity
+import com.openci.utils.viewModelOf
 
 
-class BrowserActivity : AppCompatActivity() {
+class BrowserActivity : BaseActivity<BrowserViewModel, ActivityBrowserBinding>() {
 
     private var code: String? = null
     private var public_travis_token: String? = null
@@ -27,6 +27,7 @@ class BrowserActivity : AppCompatActivity() {
             if (uri != null && uri.toString().startsWith(CALLBACK_URL)) {
                 code = uri.getQueryParameter("code")
                 Log.d("CODE:", code)
+                mViewModel.getTravisToken(code)
 //                getTravisToken(code, object : IAPICallBack<TravisTokens?>() {
 //                    fun onSuccess(travisTokens: TravisTokens) {
 //                        public_travis_token = travisTokens.getPublicToken()
@@ -49,4 +50,8 @@ class BrowserActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun getViewBinding(): ActivityBrowserBinding = ActivityBrowserBinding.inflate(layoutInflater)
+
+    override fun getViewModel() = viewModelOf<BrowserViewModel>(mViewModelProvider)
 }

@@ -15,5 +15,5 @@ interface TravisAuthService {
     @POST("auth/github")
     suspend fun getTravisAccessToken(
         @Body travisTokenRequest: TravisTokenRequest?
-    ): Response<TravisAccessToken?>?
+    ): Response<TravisAccessToken>
 }

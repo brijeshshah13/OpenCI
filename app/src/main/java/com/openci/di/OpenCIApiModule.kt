@@ -16,7 +16,7 @@ class OpenCIApiModule {
     @Singleton
     @Provides
     @Named("github_client")
-    internal fun provideGithubRetrofitInstance(): Retrofit {
+    fun provideGithubRetrofitInstance(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.GITHUB_BASE_URL)
             .addConverterFactory(
@@ -30,7 +30,7 @@ class OpenCIApiModule {
     @Singleton
     @Provides
     @Named("travis_public_client")
-    internal fun providePublicTravisRetrofitInstance(): Retrofit {
+    fun providePublicTravisRetrofitInstance(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.PUBLIC_BASE_URL)
             .addConverterFactory(
@@ -44,7 +44,7 @@ class OpenCIApiModule {
     @Singleton
     @Provides
     @Named("travis_private_client")
-    internal fun providePrivateTravisRetrofitInstance(): Retrofit {
+    fun providePrivateTravisRetrofitInstance(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.PRIVATE_BASE_URL)
             .addConverterFactory(

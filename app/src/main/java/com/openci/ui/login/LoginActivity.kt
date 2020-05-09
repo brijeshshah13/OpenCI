@@ -9,12 +9,11 @@ import com.openci.common.Constants.OAUTH_URL
 import com.openci.common.Constants.PREFS_NAME
 import com.openci.databinding.ActivityLoginBinding
 import com.openci.models.GitHubConfigHelper.getClientID
-import dagger.android.support.DaggerAppCompatActivity
+import com.openci.ui.base.BaseActivity
+import com.openci.utils.viewModelOf
 
 
-class LoginActivity : DaggerAppCompatActivity() {
-
-    private lateinit var mViewBinding: ActivityLoginBinding
+class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +31,6 @@ class LoginActivity : DaggerAppCompatActivity() {
 //            finish()
 //        }
 
-        mViewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mViewBinding.root)
         val url = OAUTH_URL + "?client_id=" + getClientID() + "&scope=repo&redirect_uri=" + CALLBACK_URL;
         mViewBinding.btnLogin.setOnClickListener { attemptLogin(url) }
@@ -43,4 +41,8 @@ class LoginActivity : DaggerAppCompatActivity() {
         startActivity(i)
         finish()
     }
+
+    override fun getViewBinding(): ActivityLoginBinding = ActivityLoginBinding.inflate(layoutInflater)
+
+    override fun getViewModel() = viewModelOf<LoginViewModel>(mViewModelProvider)
 }
