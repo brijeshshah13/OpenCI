@@ -3,23 +3,29 @@ package com.openci.di
 import android.app.Application
 import com.openci.OpenCIApp
 import com.openci.di.browser.BrowserModule
-import com.openci.di.browser.BrowserViewModelModule
 import com.openci.di.login.LoginModule
-import com.openci.di.login.LoginViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
+@ExperimentalCoroutinesApi
 @Singleton
 @Component(
     modules = [
+        // Generic
         AndroidInjectionModule::class,
         ActivityBuilderModule::class,
         OpenCIApiModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        ViewModelModule::class,
+        AppModule::class,
+
+        // Application specific
+        LoginModule::class,
+        BrowserModule::class
     ]
 )
 interface AppComponent : AndroidInjector<OpenCIApp> {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_gradient"
-    tools:context="com.openci.ui.activities.LoginActivity">
+    tools:context="com.openci.ui.login.LoginActivity">
 
     <Button
         android:id="@+id/btn_login"
